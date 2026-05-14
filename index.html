@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городские голуби: соседи</title>
+  <style>
+    :root {
+      --bg: #faf9f5;
+      --text: #222;
+      --muted: #555;
+      --accent: #567d46;
+      --card: #fff;
+      --border: #e2e0da;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.65;
+    }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: linear-gradient(180deg, #f7f4ea 0%, #e2e6d5 100%);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(34, 34, 34, 0.08);
+      margin-bottom: 32px;
+    }
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+    .hero p {
+      margin: 0 0 24px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hero .hero-note {
+      padding: 18px 22px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      color: var(--accent);
+      font-weight: 600;
+      display: inline-block;
+    }
+    .section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+    .section h2 {
+      margin-top: 0;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+    .section p {
+      margin: 18px 0;
+    }
+    .image-placeholder,
+    .video-placeholder,
+    .chart-placeholder {
+      position: relative;
+      min-height: 260px;
+      border-radius: 18px;
+      background: #f1efe8;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px;
+      margin: 22px 0;
+    }
+    .image-placeholder strong,
+    .video-placeholder strong,
+    .chart-placeholder strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .stat-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .stat-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fcfcfa;
+    }
+    .stat-card strong {
+      display: block;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .stat-card span {
+      color: var(--muted);
+    }
+    .chart {
+      background: #fcfcfa;
+      border: 1px solid #d8d5cb;
+      border-radius: 20px;
+      padding: 22px;
+      margin: 22px 0;
+    }
+    .chart h3 {
+      margin: 0 0 18px;
+      font-size: 1.35rem;
+      color: var(--accent);
+    }
+    .bar-chart,
+    .percent-chart {
+      display: grid;
+      gap: 14px;
+    }
+    .bar-row,
+    .percent-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 55px;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label,
+    .chart-label {
+      color: var(--muted);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .bar-track,
+    .chart-track {
+      height: 16px;
+      border-radius: 999px;
+      background: #ece9e1;
+      overflow: hidden;
+    }
+    .bar-fill,
+    .chart-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #567d46 0%, #8aa77a 100%);
+    }
+    .chart-value {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: right;
+    }
+    .list-small {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .embedded-image {
+      width: 100%;
+      border-radius: 18px;
+      display: block;
+      margin: 22px 0;
+      object-fit: cover;
+    }
+    .embedded-video {
+      width: 100%;
+      border-radius: 18px;
+      margin: 22px 0;
+      background: #000;
+    }
+    .sources {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .story-card {
+      margin-top: 32px;
+      padding: 20px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #eef7ff 0%, #f8fbff 100%);
+      border: 1px solid #d0e4f8;
+    }
+    .story-card h3 {
+      margin-top: 0;
+      font-size: 1.45rem;
+    }
+    .story-card p {
+      margin: 12px 0 0;
+    }
+    @media (max-width: 720px) {
+      .page {
+        padding: 18px;
+      }
+      .stat-box {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 24px;
+      }
+      .section {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>Голуби большого города: как пернатые соседи делают улицы лучше</h1>
+      <p>В каждом мегаполисе есть свои тайные жители: беззвучные, пушистые и чуть-чуть шутливые. Этот лонгрид расскажет, какие истории прячут городские голуби и почему они заслуживают хотя бы минуты нашего внимания.</p>
+    </section>
+
+    <article class="section">
+      <h2>1. Почему в городе живут голуби?</h2>
+      <p>Голуби — это одна из самых старых городских птиц. Ещё в античности люди приучали их к домам, а сегодня городская среда стала для них вкуснее и удобнее, чем дикие леса. Тут есть крыши, скворечники, хлебные крошки и люди, готовые посмотреть на пернатого приятеля.</p>
+      <p>Но для большинства горожан голуби — это настоящие соседи. Они встречают на площади, сопровождают к кафе и иногда улетают, будто проверяют: ты случайно не забыл улыбнуться?</p>
+      <img src="1.png" alt="Голубь на городской площади" class="embedded-image">
+      <p>В этом разделе классический городской образ: голубь на фонтане, голубка на заборе и лёгкая ирония. Он помогает читателю сразу войти в тему — «живые соседи, которые могут быть дружелюбными, а иногда и забавными». </p>
+    </article>
+
+    <article class="section">
+      <h2>2. Три истории из разных городов</h2>
+      <p>Голуби есть в Нью-Йорке, Лондоне, Москве и даже в Токио. У каждого города свой характер, но везде есть похожие привычки: любить людей, любить «перекус на ходу» и любить места, где тепло.</p>
+      <img src="2.jpg" alt="Голуби в разных городах мира" class="embedded-image">
+      <div class="stat-box">
+        <div class="stat-card">
+          <strong>120 000</strong>
+          <span>примерно столько городских голубей живёт в Москве</span>
+        </div>
+        <div class="stat-card">
+          <strong>600 000</strong>
+          <span>оценочная численность голубей в Нью-Йорке</span>
+        </div>
+        <div class="stat-card">
+          <strong>3</strong>
+          <span>количество странных, но добрых историй о голубях, собранных в этом разделе</span>
+        </div>
+        <div class="stat-card">
+          <strong>1</strong>
+          <span>сторис-карточка 9:16 для быстрого знакомства с темой</span>
+        </div>
+      </div>
+      <p>Самый интересный факт: в одном парке Лондона голуби стали «секретными охранниками» пикника. Они показывали, где стоят свежие крошки, и при этом не требовали ничего взамен, кроме одной свободной лавочки.</p>
+      <p>В Токио у голубей появилось имя «хикари» — «свет». Они так часто появляются на мосту во время заката, что туристы приходят специально посмотреть на «светящихся» голубей. В Москве легенда гласит, что если голубь сядет на голову рядом с красной площадью, то день будет добрым.</p>
+
+      <section class="chart" aria-label="Диаграмма: количество голубей в городах">
+        <h3>Плотность голубей в городах</h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Нью-Йорк</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div>
+            <span class="chart-value">600 000</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Стамбул</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 70%"></div></div>
+            <span class="chart-value">420 000</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Париж</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 42%"></div></div>
+            <span class="chart-value">250 000</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Токио</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 30%"></div></div>
+            <span class="chart-value">180 000</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Москва</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 20%"></div></div>
+            <span class="chart-value">120 000</span>
+          </div>
+        </div>
+      </section>
+      <p>Визуализация показывает: Москва 120 000, Нью-Йорк 600 000, Стамбул 420 000, Париж 250 000, Токио 180 000. Это не просто цифры, а способ увидеть, как разный город влияет на жизнь голубиной стаи.</p>
+    </article>
+
+    <article class="section">
+      <h2>3. Как понять городского голубя и подружиться с ним</h2>
+      <p>Голубей легко понять, если смотреть на них как на соседей, а не как на проблему. Они прилетают туда, где есть внимание, еда и немного тени. И они умеют рассмешить: вдруг ты сидишь в трамвае, а голова сидящего перед тобой голубя глядит в окно — словно он проверяет маршрут.</p>
+      <p>Здесь важны три простые правила:</p>
+      <ol>
+        <li>не кормите их чипсами и печеньем,</li>
+        <li>оставляйте место для птиц в парках и на набережных,</li>
+        <li>посмотрите на них как на часть городской жизни, а не как на мусор.</li>
+      </ol>
+      <p>Если говорить о забавных наблюдениях, то голуби больше всего любят:</p>
+      <ul class="list-small">
+        <li>фонтанные площадки;</li>
+        <li>зоны с уличными музыкантами;</li>
+        <li>крыши, где солнечно и тихо;</li>
+        <li>городские рынки, где всегда есть крошки.</li>
+      </ul>
+      <video controls muted playsinline class="embedded-video">
+        <source src="4.mp4" type="video/mp4">
+        Ваш браузер не поддерживает воспроизведение видео.
+      </video>
+      <p>Видеоряд отлично работает для мобильной версии: 15–20 секунд, шум улицы, смех детей и пара кадров, где голубь, кажется, позирует. Это добавит живости лонгриду и сделает тему ещё ярче.</p>
+
+      <section class="chart" aria-label="Диаграмма: любимые места городских голубей">
+        <h3>Любимые места городских голубей</h3>
+        <div class="percent-chart">
+          <div class="percent-row">
+            <span class="chart-label">Парки</span>
+            <div class="chart-track"><div class="chart-fill" style="width: 38%"></div></div>
+            <span class="chart-value">38%</span>
+          </div>
+          <div class="percent-row">
+            <span class="chart-label">Площади</span>
+            <div class="chart-track"><div class="chart-fill" style="width: 27%"></div></div>
+            <span class="chart-value">27%</span>
+          </div>
+          <div class="percent-row">
+            <span class="chart-label">Рынки</span>
+            <div class="chart-track"><div class="chart-fill" style="width: 18%"></div></div>
+            <span class="chart-value">18%</span>
+          </div>
+          <div class="percent-row">
+            <span class="chart-label">Набережные</span>
+            <div class="chart-track"><div class="chart-fill" style="width: 11%"></div></div>
+            <span class="chart-value">11%</span>
+          </div>
+          <div class="percent-row">
+            <span class="chart-label">Другие</span>
+            <div class="chart-track"><div class="chart-fill" style="width: 6%"></div></div>
+            <span class="chart-value">6%</span>
+          </div>
+        </div>
+      </section>
+      <p>Диаграмма показывает, как голуби предпочитают парки и площади, тогда как рынки и набережные остаются вторым планом. Так читатель видит поведение птиц без лишней теории.</p>
+    </article>
+
+    <article class="section">
+      <h2>4. Почему это доброе и немного шутливое</h2>
+      <p>Голуби в городе — не герои эпоса, но они несут с собой маленькое добро. Они учат нас делиться вниманием, не спешить и улыбаться в самый серый дождливый день. А ещё они оказываются отличными «квестовыми персонажами»: если хочешь найти яйцо, нужно внимательно смотреть по сторонам за таблицами, витринами и цветочными ящиками.</p>
+      <p>В долгой истории о городе голубь — это тот, кто показывает, что даже самая привычная улица может стать чуть более доброй. И если мы посмотрим на него не как на проблему, а как на живую часть городской сцены, то город действительно станет лучше.</p>
+      <div class="story-card">
+        <h3>Сторис-карточка 9:16</h3>
+        <img src="3.png" alt="Вертикальная сторис-карточка с городским голубем" class="embedded-image">
+        <p>Заголовок: «Голубь, который принёс добро в город». Краткий текст: «Обычный голубь, необычные истории и город, в котором улыбка — главный маршрут». Фон: городской парк, голубь на лавочке, мягкий шрифтовой блок.</p>
+      </div>
+    </article>
+
+    <section class="sources">
+      <h2>Источники</h2>
+      <ul>
+        <li><a href="https://www.tierschutzbund.de/en/animals-topics/wild-animals/city-pigeons/" target="_blank" rel="noopener">https://www.tierschutzbund.de/en/animals-topics/wild-animals/city-pigeons/</a></li>
+        <li><a href="https://www.museumfuernaturkunde.berlin/en/erkunden/wissensweiten/stadttauben-unterschaetzte-mitbewohner/" target="_blank" rel="noopener">https://www.museumfuernaturkunde.berlin/en/erkunden/wissensweiten/stadttauben-unterschaetzte-mitbewohner/</a></li>
+        <li><a href="https://elementy.ru/nauchno-populyarnaya_biblioteka/434213/Gorodskie_golubi_polimorfizm_i_strategii_vyzhivaniya" target="_blank" rel="noopener">https://elementy.ru/nauchno-populyarnaya_biblioteka/434213/Gorodskie_golubi_polimorfizm_i_strategii_vyzhivaniya</a></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
